@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>80s Excess - The Ultimate Experience</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Monoton&family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap');
+
+        :root {
+            --neon-pink: #ff6ec7;
+            --neon-blue: #00f3ff;
+            --neon-green: #39ff14;
+            --neon-yellow: #ffff00;
+            --neon-purple: #bc13fe;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px var(--neon-pink),
+                         0 0 20px var(--neon-pink),
+                         0 0 30px var(--neon-pink),
+                         0 0 40px var(--neon-pink);
+        }
+
+        .hero-title {
+            font-family: 'Monoton', cursive;
+            font-size: 6rem;
+            line-height: 1;
+            background: linear-gradient(to right, var(--neon-pink), var(--neon-blue), var(--neon-green), var(--neon-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: heroTitleAnimation 5s linear infinite;
+        }
+
+        @keyframes heroTitleAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero-subtitle {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5rem;
+            color: var(--neon-yellow);
+        }
+
+        .grid-background {
+            background-image: linear-gradient(var(--neon-blue) 1px, transparent 1px),
+                              linear-gradient(90deg, var(--neon-blue) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(20px); }
+        }
+
+        .neon-button {
+            background-color: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 10px 20px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .neon-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--neon-green) 20%, transparent 20%);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .neon-button:hover {
+            color: #000;
+            text-shadow: none;
+        }
+
+        .neon-button:hover::before {
+            opacity: 1;
+            transform: translate3d(-25%, -25%, 0) rotate(45deg);
+        }
+
+        .section-title {
+            font-family: 'Monoton', cursive;
+            font-size: 3rem;
+            color: var(--neon-purple);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .gallery-item img {
+            transition: all 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-text {
+            color: #fff;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .cta-section {
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+            padding: 4rem 0;
+        }
+
+        .cta-text {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            font-size: 2rem;
+            color: #fff;
+            margin: 0 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+            color: var(--neon-yellow);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-text {
+                font-size: 1.5rem;
+            }
+        }
+
+        .parallax-section {
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+        }
+
+        #parallax-1 {
+            background-image: url('/api/placeholder/1200/800');
+            z-index: 1;
+        }
+
+        #parallax-2 {
+            background-image: url('/api/placeholder/1200/800');
+            z-index: 2;
+        }
+
+        #parallax-3 {
+            background-image: url('/api/placeholder/1200/800');
+            z-index: 3;
+        }
+
+        .glitch-effect {
+            position: relative;
+        }
+
+        .glitch-effect::before,
+        .glitch-effect::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch-effect::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-pink);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim-1 5s infinite linear alternate-reverse;
+        }
+
+        .glitch-effect::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--neon-blue);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim-2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip: rect(20px, 9999px, 74px, 0); }
+            20% { clip: rect(39px, 9999px, 14px, 0); }
+            40% { clip: rect(5px, 9999px, 64px, 0); }
+            60% { clip: rect(89px, 9999px, 5px, 0); }
+            80% { clip: rect(32px, 9999px, 92px, 0); }
+            100% { clip: rect(69px, 9999px, 31px, 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(54px, 9999px, 31px, 0); }
+            20% { clip: rect(9px, 9999px, 94px, 0); }
+            40% { clip: rect(74px, 9999px, 25px, 0); }
+            60% { clip: rect(30px, 9999px, 82px, 0); }
+            80% { clip: rect(67px, 9999px, 18px, 0); }
+            100% { clip: rect(14px, 9999px, 77px, 0); }
+        }
+
+        .retro-tv {
+            width: 300px;
+            height: 200px;
+            background-color: #333;
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tv-screen {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .tv-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            color: var(--neon-green);
+            text-align: center;
+        }
+
+        .tv-static {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/api/placeholder/300/200');
+            opacity: 0.1;
+            animation: tvStatic 0.5s steps(10) infinite;
+        }
+
+        @keyframes tvStatic {
+            0% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -5%); }
+            20% { transform: translate(5%, 5%); }
+            30% { transform: translate(-5%, 5%); }
+            40% { transform: translate(5%, -5%); }
+            50% { transform: translate(-5%, -5%); }
+            60% { transform: translate(5%, 5%); }
+            70% { transform: translate(-5%, 5%); }
+            80% { transform: translate(5%, -5%); }
+            90% { transform: translate(-5%, -5%); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .vhs-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .vhs-scanlines {
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0) 0%,
+                rgba(0, 0, 0, 0) 50%,
+                rgba(0, 0, 0, 0.1) 50%,
+                rgba(0, 0, 0, 0.1) 100%
+            );
+            background-size: 100% 4px;
+            height: 100%;
+        }
+
+        .vhs-flicker {
+            background: rgba(255, 255, 255, 0.05);
+            width: 100%;
+            height: 100%;
+            animation: vhsFlicker 0.2s infinite;
+        }
+
+        @keyframes vhsFlicker {
+            0% { opacity: 0.9; }
+            50% { opacity: 1; }
+            100% { opacity: 0.9; }
+        }
+    </style>
+</head>
+<body>
+    <div class="vhs-effect">
+        <div class="vhs-scanlines"></div>
+        <div class="vhs-flicker"></div>
+    </div>
+
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="grid-background"></div>
+        <div class="container mx-auto text-center z-10">
+            <h1 class="hero-title mb-4" data-text="80s EXCESS">80s EXCESS</h1>
+            <p class="hero-subtitle mb-8">Experience the Ultimate Retro Revival</p>
+            <a href="#features" class="neon-button">Enter the Time Warp</a>
+        </div>
+    </header>
+
+    <nav class="bg-black py-4 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold neon-text" style="--neon-color: var(--neon-blue);">80s EXCESS</a>
+            <ul class="flex space-x-6">
+                <li><a href="#features" class="hover:text-neon-pink transition-colors">Features</a></li>
+                <li><a href="#gallery" class="hover:text-neon-green transition-colors">Gallery</a></li>
+                <li><a href="#about" class="hover:text-neon-yellow transition-colors">About</a></li>
+                <li><a href="#contact" class="hover:text-neon-purple transition-colors">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="features" class="py-20">
+        <div class="container mx-auto">
+            <h2 class="section-title mb-12">Radical Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="feature-card">
+                    <div class="feature-icon text-neon-pink">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Synth-tastic Sounds</h3>
+                    <p>Immerse yourself in the electrifying world of 80s synth-pop and new wave beats.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon text-neon-green">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Retro Visuals</h3>
+                    <p>Experience eye-popping neon graphics and cutting-edge (for the 80s) digital effects.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon text-neon-blue">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Arcade Mania</h3>
+                    <p>Relive the golden age of video games with our curated selection of classic arcade titles.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-20 bg-gray-900">
+        <div class="container mx-auto">
+            <h2 class="section-title mb-12">Tubular Gallery</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="gallery-item">
+                    <img src="9789493246195_RadicalFashionExercises_Spread6_72dpi.jpg" alt="80s Fashion" class="w-full h-full object-cover">
+                    <div class="gallery-overlay">
+                        <p class="gallery-text">Radical Fashion</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="OIP (10).jpeg" alt="Retro Electronics" class="w-full h-full object-cover">
+                    <div class="gallery-overlay">
+                        <p class="gallery-text">Gnarly Gadgets</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="MP3_Various Artists - Classic Show Tunes_iTunes_Plus_AAC_M4A.jpeg" alt="80s Music Icons" class="w-full h-full object-cover">
+                    <div class="gallery-overlay">
+                        <p class="gallery-text">Iconic Tunes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20">
+        <div class="container mx-auto">
+            <h2 class="section-title mb-12">About the Madness</h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <div class="retro-tv">
+                        <div class="tv-screen">
+                            <div class="tv-content">
+                                <p>WELCOME TO</p>
+                                <p>THE FUTURE</p>
+                                <p>OF THE PAST</p>
+                            </div>
+                            <div class="tv-static"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 md:pl-8">
+                    <p class="text-lg mb-4">Step into a time machine and experience the totally radical world of 80s excess! We're bringing back the big hair, shoulder pads, and neon everything.</p>
+                    <p class="text-lg mb-4">Our mission is to celebrate the most bodacious decade in history, complete with all its over-the-top glory and nostalgic charm.</p>
+                    <p class="text-lg">Whether you're a true 80s kid or just curious about this iconic era, we've got something totally tubular for everyone!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="parallax-section">
+        <div class="parallax-layer" id="parallax-1"></div>
+        <div class="parallax-layer" id="parallax-2"></div>
+        <div class="parallax-layer" id="parallax-3"></div>
+        <div class="container mx-auto relative z-10 h-full flex items-center justify-center">
+            <h2 class="text-5xl font-bold text-white text-center glitch-effect" data-text="EMBRACE THE EXCESS">EMBRACE THE EXCESS</h2>
+        </div>
+    </section>
+
+    <section id="contact" class="cta-section">
+        <div class="container mx-auto text-center">
+            <h2 class="cta-text mb-8">Ready to Party Like It's 1989?</h2>
+            <a href="#" class="neon-button">Join the Radical Revolution</a>
+            <div class="mt-12">
+                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black py-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 80s Excess. All rights reserved. Stay rad!</p>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        
+        // Glitch effect
+        const glitchElement = document.querySelector('.glitch-effect');
+        
+        function glitchAnimation() {
+            gsap.to(glitchElement, {
+                skewX: 20,
+                duration: 0.1,
+                repeat: 1,
+                yoyo: true,
+                ease: "power4.inOut",
+                onComplete: () => {
+                    gsap.delayedCall(Math.random() * 5 + 2, glitchAnimation);
+                }
+            });
+        }
+
+        glitchAnimation();
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // VHS effect intensity based on scroll position
+        window.addEventListener('scroll', () => {
+            const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            const vhsEffect = document.querySelector('.vhs-effect');
+            vhsEffect.style.opacity = Math.min(scrollPercentage / 100, 0.3);
+        });
+
+        // Custom cursor
+        const cursor = document.createElement('div');
+        cursor.classList.add('custom-cursor');
+        document.body.appendChild(cursor);
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Interactive elements hover effect
+        const interactiveElements = document.querySelectorAll('a, button, .feature-card, .gallery-item');
+        
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.classList.add('cursor-hover');
+            });
+            element.addEventListener('mouseleave', () => {
+                cursor.classList.remove('cursor-hover');
+            });
+        });
+
+        // Audio visualizer
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const analyser = audioContext.createAnalyser();
+        const audioElement = new Audio('/path/to/80s-music.mp3');
+        const source = audioContext.createMediaElementSource(audioElement);
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
+
+        function visualize() {
+            const canvas = document.createElement('canvas');
+            document.body.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = 100;
+            canvas.style.position = 'fixed';
+            canvas.style.bottom = '0';
+            canvas.style.left = '0';
+            canvas.style.zIndex = '9999';
+
+            analyser.fftSize = 256;
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+
+            function draw() {
+                requestAnimationFrame(draw);
+                analyser.getByteFrequencyData(dataArray);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                const barWidth = (canvas.width / bufferLength) * 2.5;
+                let x = 0;
+
+                for (let i = 0; i < bufferLength; i++) {
+                    const barHeight = dataArray[i] / 2;
+                    ctx.fillStyle = `rgb(${barHeight + 100}, 50, 255)`;
+                    ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+                    x += barWidth + 1;
+                }
+            }
+
+            draw();
+        }
+
+        visualize();
+
+        // Start audio playback on user interaction
+        document.addEventListener('click', () => {
+            audioContext.resume().then(() => {
+                audioElement.play();
+            });
+        }, { once: true });
+    </script>
+</body>
+</html>
